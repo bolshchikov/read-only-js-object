@@ -24,10 +24,29 @@
 						// this fixes the array
 						acc[propName].unshift(acc[propName].shift());
 
-						// when splice occures, there's no
+						// when splice occurs, there's no
 						// clear indication what has been removed
 						// so, we need to find the diff, and clear acc
-						var args = _.difference(acc[propName], cArg.object);
+//						var args = _.difference(acc[propName], cArg.object);
+
+						var args = (function (arr1, arr2) {
+							var runner, shorter;
+							// identify the longest and the shortest arrays
+							if (arr1.length > arr2.length) {
+								runner = arr1;
+								shorter = arr2;
+							}
+							else {
+								runner = arr2;
+								shorter = arr1;
+							}
+							return runner.filter(function (item1) {
+								return !shorter.some(function (item2) {
+									return JSON.stringify(item1) === JSON.stringify(item2);
+								})
+							});
+						})(acc[propName], cArg.object);
+
 						args.unshift(acc[propName]);
 						_.pull.apply(null, args);
 					}
