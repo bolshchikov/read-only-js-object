@@ -21,13 +21,9 @@
 						delete acc[propName][cArg.name];
 					}
 					if (_.isArray(cArg.object)) {
-						// this fixes the array
-						acc[propName].unshift(acc[propName].shift());
-
 						// when splice occurs, there's no
 						// clear indication what has been removed
 						// so, we need to find the diff, and clear acc
-//						var args = _.difference(acc[propName], cArg.object);
 
 						var args = (function (arr1, arr2) {
 							var runner, shorter;
