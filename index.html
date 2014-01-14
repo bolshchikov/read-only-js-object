@@ -13,10 +13,11 @@
 </script>
 
 <script type="text/x-handlebars" id="index">
-  <div>Original Model: {{model1.userSystemMails.length}}</div>
-  <div>Read Only Model:  {{model2.userSystemMails.length}}</div>
+  <div>Original Model: {{model1.userSystemMails.length}}, id: {{model1.id}}, isGarry: {{model1.users.garry}}</div>
+  <div>Read Only Model:  {{model2.userSystemMails.length}}, id: {{model2.id}}, isGarry: {{model2.users.garry}}</div>
   <button {{action 'add'}}>Add</button>
   <button {{action 'remove'}}>Remove</button>
+  <button {{action 'increment'}}>Increment</button>
 </script>
 
 <script src="vendors/jquery-1.10.2.js"></script>

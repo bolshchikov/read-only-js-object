@@ -84,7 +84,7 @@
 						value: {}
 					});
 					if (_.isArray(acc)) { acc.notifyPropertyChange('length'); }
-				else { acc.notifyPropertyChange(propName); }
+					else { acc.notifyPropertyChange(propName); }
 					Object.observe(target[propName], observeFn);
 					_readOnly(target[propName], acc[propName]);
 				}
@@ -97,6 +97,9 @@
 							return target[propName];
 						}
 					});
+					Ember.addObserver(target, propName, function (obj, propName) {
+						Ember.set(acc, propName, obj[propName]);
+					})
 				}
 			};
 

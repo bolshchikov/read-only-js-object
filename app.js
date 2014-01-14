@@ -26,13 +26,18 @@ App.IndexController = Ember.Controller.extend({
 	actions: {
 		add: function () {
 			App.data.userSystemMails.pushObject({'title': App.data.userSystemMails.length + 1});
-			console.log(this.model1.userSystemMails);
-			console.log(this.model2.userSystemMails);
+//			console.log(this.model1);
+//			console.log(this.model2);
 		},
 		remove: function () {
 			App.data.userSystemMails.popObject();
-			console.log(this.model1.userSystemMails);
-			console.log(this.model2.userSystemMails);
+//			console.log(this.model1.userSystemMails);
+//			console.log(this.model2.userSystemMails);
+		},
+		increment: function () {
+			Ember.set(App.data, 'id', parseInt(App.data.id, 10) + 1);
+//			console.log(this.model1);
+//			console.log(this.model2);
 		}
 	}
 });
