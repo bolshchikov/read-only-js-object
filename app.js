@@ -2,12 +2,9 @@
  * @author bolshchikov
  */
 
-(function (global) {
-	var data,
-			module1 = {},
-			module2 = {};
 
-	data = {
+var App = Ember.Application.create({
+	data: {
 		action: "Add",
 		childrenNames: "userSystemMails",
 		id: "30",
@@ -20,14 +17,17 @@
 			garry: true,
 			emilia: false
 		}
-	};
+	}
+});
 
-	module1.data = data;
-	module2.data = global.readOnly(data);
-
-	module1.data.userSystemMails.pop();
-
-	console.log(module1.data);
-	console.log(module2.data);
-
-})(window);
+App.IndexController = Ember.Controller.extend({
+	model1: App.data,
+	model2: window.readOnly(App.data),
+	actions: {
+		add: function () {
+			App.data.userSystemMails.pushObject({'title': App.data.userSystemMails.length + 1});
+			console.log(this.get('model1'));
+			console.log(this.get('model2'));
+		}
+	}
+});

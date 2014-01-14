@@ -5,6 +5,23 @@
 </head>
 <body>
 
+
+<script type="text/x-handlebars">
+  <h2>Welcome to Ember.js</h2>
+
+  {{outlet}}
+</script>
+
+<script type="text/x-handlebars" id="index">
+  <div>Original Model: {{model1.userSystemMails.length}}</div>
+  <div>Read Only Model:  {{model2.userSystemMails.length}}</div>
+  <button {{action 'add'}}>Add</button>
+</script>
+
+<script src="vendors/jquery-1.10.2.js"></script>
+<script src="vendors/handlebars-1.1.2.js"></script>
+<script src="vendors/ember-1.3.0.js"></script>
+
 <script src="vendors/lodash.js"></script>
 <script src="readonly.js"></script>
 <script src="app.js"></script>
