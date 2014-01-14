@@ -26,8 +26,13 @@ App.IndexController = Ember.Controller.extend({
 	actions: {
 		add: function () {
 			App.data.userSystemMails.pushObject({'title': App.data.userSystemMails.length + 1});
-			console.log(this.get('model1'));
-			console.log(this.get('model2'));
+			console.log(this.model1.userSystemMails);
+			console.log(this.model2.userSystemMails);
+		},
+		remove: function () {
+			App.data.userSystemMails.popObject();
+			console.log(this.model1.userSystemMails);
+			console.log(this.model2.userSystemMails);
 		}
 	}
 });

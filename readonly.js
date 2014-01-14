@@ -9,6 +9,9 @@
 			var _defineProperty = function (propName, target, acc) {
 				var i, len;
 
+				// this is a private property, ignore it
+				if (propName[0] === '_') { return void 0; }
+
 				// operation to be performed when add occurred
 				var addOp = function (cArg) {
 					// have to define the added item
@@ -43,8 +46,7 @@
 							});
 						})(acc[propName], cArg.object);
 
-						args.unshift(acc[propName]);
-						_.pull.apply(null, args);
+						acc[propName].removeObjects(args);
 					}
 				};
 
@@ -65,26 +67,30 @@
 				};
 
 				if (_.isArray(target[propName])) {
-					Object.defineProperty(acc, propName, {
+					Ember.defineProperty(acc, propName, {
 						configurable: true,
 						enumerable: true,
 						value: []
 					});
+					if (_.isArray(acc)) { acc.notifyPropertyChange('length'); }
+					else { acc.notifyPropertyChange(propName); }
 					Object.observe(target[propName], observeFn);
 					_readOnly(target[propName], acc[propName]);
 				}
 				else if (_.isPlainObject(target[propName])) {
-					Object.defineProperty(acc, propName, {
+					Ember.defineProperty(acc, propName, {
 						configurable: true,
 						enumerable: true,
 						value: {}
 					});
+					if (_.isArray(acc)) { acc.notifyPropertyChange('length'); }
+				else { acc.notifyPropertyChange(propName); }
 					Object.observe(target[propName], observeFn);
 					_readOnly(target[propName], acc[propName]);
 				}
 				// value is the primitive one
 				else {
-					Object.defineProperty(acc, propName, {
+					Ember.defineProperty(acc, propName, {
 						configurable: true,
 						enumerable: true,
 						get: function () {
@@ -102,10 +108,10 @@
 			return acc;
 		};
 		if (Array.isArray(target)) {
-			return _readOnly(target, []);
+			return _readOnly(target, new Ember.Array());
 		}
 		else {
-			return _readOnly(target, {});
+			return _readOnly(target, new Ember.Object());
 		}
 	}
 	global.readOnly = readOnly;
